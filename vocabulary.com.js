@@ -6,20 +6,13 @@ function getNextQuestion() {
     if ("adata" in response) {
       setTimeout(function() {
         sendAnswer(decodeAnswer(response.adata), response.secret.toString());
-      }, 1000);
-      
+      }, 1000);      
     } else { // not a question
       setTimeout(function() {
         getNextQuestion();
-      }, 300);
-      
+      }, 300);      
     }
-
-  }
-  request.onerror = function() {
-    console.log("get next question error");
-  };
-  
+  }  
   request.send();
 }
 
@@ -56,5 +49,5 @@ function decodeAnswer(adata) {
   return JSON.parse(str.join("")).nonces[0];
 
 }
-
+console.log("vocabulary.com.js started...");
 getNextQuestion();
