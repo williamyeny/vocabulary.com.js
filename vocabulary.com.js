@@ -3,9 +3,11 @@ function getNextQuestion() {
   request.open("GET", "https://www.vocabulary.com/challenge/nextquestion.json", true);
   request.onload = function() {
     var response = JSON.parse(request.responseText);
-    console.log(response);
     if ("adata" in response) {
-      sendAnswer(decodeAnswer(response.adata), response.secret);
+      setTimeout(function() {
+        sendAnswer(decodeAnswer(response.adata), response.secret.toString());
+      }, 1000);
+      
     } else { // not a question
       getNextQuestion();
     }
@@ -21,12 +23,16 @@ function getNextQuestion() {
 function sendAnswer(answer, secret) {
   var request = new XMLHttpRequest();
   request.open("POST", "https://www.vocabulary.com/challenge/saveanswer.json", true);
-  request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  request.setRequestHeader("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+  
   request.onload = function () {
-      // do something to response
-      console.log(this.responseText);
+    console.log("Answered question. Total points: " + JSON.parse(request.responseText).pdata.points);
+    setTimeout(function() {
+      getNextQuestion();
+    }, 1000);
+    
   };
-  request.send("t=" + Date.now() +  "&rt=0&a=" + answer + "&secret=" + secret);
+  request.send("t=" + Date.now() +  "&rt=100&a=" + answer + "&secret=" + encodeURIComponent(secret));
 }
 
 function decodeAnswer(adata) {
