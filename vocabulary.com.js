@@ -9,7 +9,10 @@ function getNextQuestion() {
       }, 1000);
       
     } else { // not a question
-      getNextQuestion();
+      setTimeout(function() {
+        getNextQuestion();
+      }, 300);
+      
     }
 
   }
@@ -29,7 +32,7 @@ function sendAnswer(answer, secret) {
     console.log("Answered question. Total points: " + JSON.parse(request.responseText).pdata.points);
     setTimeout(function() {
       getNextQuestion();
-    }, 1000);
+    }, 700);
     
   };
   request.send("t=" + Date.now() +  "&rt=100&a=" + answer + "&secret=" + encodeURIComponent(secret));
