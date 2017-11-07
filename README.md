@@ -1,4 +1,5 @@
 # vocabulary.com.js
+Lightweight Javascript exploit for vocabulary.com to automatically generate points
 
 ## How to use
 
