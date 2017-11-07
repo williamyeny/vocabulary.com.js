@@ -6,7 +6,7 @@ function getNextQuestion() {
     if ("adata" in response) {
       setTimeout(function() {
         sendAnswer(decodeAnswer(response.adata), response.secret.toString());
-      }, 1000);
+      }, 1500);
     } else { // not a question
       setTimeout(function() {
         getNextQuestion();
