@@ -6,11 +6,11 @@ function getNextQuestion() {
     if ("adata" in response) {
       setTimeout(function() {
         sendAnswer(decodeAnswer(response.adata), response.secret.toString());
-      }, 1500);
+      }, 2000);
     } else { // not a question
       setTimeout(function() {
         getNextQuestion();
-      }, 300);
+      }, 500);
     }
   }
   request.send();
